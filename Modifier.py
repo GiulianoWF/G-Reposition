@@ -1,4 +1,5 @@
 import os
+import platform
 import numpy
 
 class Modifier:
@@ -70,9 +71,13 @@ class Modifier:
 
 def main():
     path = os.path.dirname(os.path.abspath(__file__))
-    path_in  = path + '\\' + input('Input file name?')
-    path_out = path + '\\' + input('Output file name?')
-
+    my_os = platform.system()
+    if my_os is 'Linux':
+        path_in  = path + '/' + input('Input file name?')
+        path_out = path + '/' + input('Output file name?')
+    if my_os is 'Windows':
+        path_in  = path + '\\' + input('Input file name?')
+        path_out = path + '\\' + input('Output file name?')
     file_in = open(path_in, 'r+')
     file_out = open(path_out, 'w+')
 
@@ -88,7 +93,7 @@ def main():
     i = 0
     for line in file_in:
         i = i+1
-        print ('Line number ' + i)
+        print ('Line number ' + str(i))
         file_out.write(transformer.translate_line(line) + '\n')
 
     #close the files before ploting, so it is saved when ploting. (witch takes time)
